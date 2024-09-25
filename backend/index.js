@@ -8,15 +8,15 @@ const historyRoutes = require('./routes/historyRoutes');
 const { MONGO_URI } = require('./config/config')
 
 // Initialize the Express application
-const index = express();
+const app = express();
 
 // Middleware for parsing JSON and URL-encoded data
-index.use(express.json());
-index.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // CORS Middleware (optional, if needed for cross-origin requests)
-index.use(cors({
-    origin: "https://image-craft-weld.vercel.app/",
+app.use(cors({
+    origin: "https://image-craft-weld.vercel.app",
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true
 }));
@@ -38,17 +38,17 @@ const connectDB = async () => {
 connectDB();
 
 // Route handlers
-index.use('/auth', authRoutes);
-index.use('/images', imageRoutes);
-index.use('/user', historyRoutes);
+app.use('/auth', authRoutes);
+app.use('/images', imageRoutes);
+app.use('/user', historyRoutes);
 
 // Error handling middleware
-index.use((err, req, res, next) => {
+app.use((err, req, res, next) => {
     console.error('Unexpected error:', err.message);
     res.status(500).json({ message: 'Internal Server Error', error: err.message });
 });
 
 // Start the server
-index.listen(5000, () => {
+app.listen(5000, () => {
     console.log('Server is running on port 5000');
 });
