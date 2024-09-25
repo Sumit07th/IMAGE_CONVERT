@@ -1,5 +1,5 @@
 import axios from "axios"
-const BASE_URL = "https://image-convert-12pq.vercel.app";
+const BASE_URL = "https://image-craft-wrfl.onrender.com";
 
 const axiosInstance = axios.create({
     baseURL: BASE_URL,
